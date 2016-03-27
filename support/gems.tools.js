@@ -119,8 +119,8 @@ gems.tools.updateTroopData = function() {
 		return true;
 	}
 
-	//gems.common.log("whoops!  accidentally hitting their server.");
-	//return false;
+	gems.common.log("whoops!  comment this out to REALLY hit their server.");
+	return false;
 
 	$.getJSON(gems.tools.proxyUrl + "?url=" + gems.tools.wikiBaseUrl + gems.tools.slug.troopList, function(data) {
 		gems.common.log("troop data fetched.  parsing.");
