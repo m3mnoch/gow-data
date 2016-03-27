@@ -19,7 +19,9 @@ $.namespace('gems.common');
 gems.common.loggingEnabled = true;
 gems.common.initMs = Date.now();
 
-gems.common.troopDataUrl = "support/gems.troops.json";
+gems.common.supportBaseUrl = "";
+gems.common.troopDataUrl = "";
+
 gems.common.troops = {};
 
 gems.common.images = {};
@@ -28,7 +30,10 @@ gems.common.images.armor = "http://vignette1.wikia.nocookie.net/gems-of-war/imag
 gems.common.images.attack = "http://vignette2.wikia.nocookie.net/gems-of-war/images/0/00/Attack.png";
 gems.common.images.magic = "http://vignette2.wikia.nocookie.net/gems-of-war/images/f/f7/Magic.png";
 
-gems.common.init = function() {
+gems.common.init = function(supportBaseUrl) {
+	gems.common.supportBaseUrl = supportBaseUrl;
+	gems.common.troopDataUrl = gems.common.supportBaseUrl + "gems.troops.json";	
+
 	gems.common.initDate = new Date();
 	gems.common.log("common script loaded.");
 }

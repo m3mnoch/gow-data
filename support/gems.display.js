@@ -6,7 +6,7 @@ gems.display.init = function() {
 }
 
 gems.display.loadTroopData = function() {
-	$.getJSON( "support/gems.troops.json", function(data) {
+	$.getJSON(gems.common.troopDataUrl, function(data) {
 		gems.common.troops = data;
 		$("#loadMessage").hide();
 		$("#troopForm").show();
