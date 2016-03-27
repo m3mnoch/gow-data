@@ -119,8 +119,8 @@ gems.tools.updateTroopData = function() {
 		return true;
 	}
 
-	gems.common.log("whoops!  accidentally hitting their server.");
-	return false;
+	//gems.common.log("whoops!  accidentally hitting their server.");
+	//return false;
 
 	$.getJSON(gems.tools.proxyUrl + "?url=" + gems.tools.wikiBaseUrl + gems.tools.slug.troopList, function(data) {
 		gems.common.log("troop data fetched.  parsing.");
@@ -139,10 +139,18 @@ gems.tools.parseTroopList = function(htmlString) {
 			
 			if ($(val).attr('alt').lastIndexOf("Troop ", 0) === 0) {
 				// we've found a troop!
+				gems.common.log("troop found: " + $(val).attr('alt'));
+
 				var troopName = $(val).parent().attr('title');
 				var troopUrl = $(val).parent().attr('href');
-				var troopImage = $(val).attr('data-src');
+				
+				if ($(val)[0].hasAttribute("data-src")) {
+					var troopImage = $(val).attr('data-src');
+				} else {
+					var troopImage = $(val).attr('src');
+				}
 				troopImage = troopImage.substring(0, troopImage.indexOf('.png') + 4);
+				
 				var troop = {"name":troopName, "image":troopImage, "url":troopUrl};
 
 				gems.common.troops[troopName] = troop;
@@ -178,6 +186,8 @@ gems.tools.parseTroopList = function(htmlString) {
 gems.tools.parseTroopData = function(troopName, htmlString) {
 	var htmlDom = $(htmlString);
 
+	// ------------------------------------------------------------------------------------------------------------
+	// basic troop data
 	var basicTroop = htmlDom.find('aside');
 	gems.common.troops[troopName]['flavor'] = basicTroop.find('i').text();
 	gems.common.log(troopName + " flavor: " + gems.common.troops[troopName]['flavor']);
@@ -196,11 +206,94 @@ gems.tools.parseTroopData = function(troopName, htmlString) {
 			gems.common.log(troopName + " type: " + gems.common.troops[troopName]['type']);
 
 		} else if ($(typeNode).text() == "Mana") {
-			gems.common.troops[troopName]['mana'] = $(typeNode).parent().find('.pi-data-value').text().split("/");
-			gems.common.log(troopName + " mana: " + gems.common.troops[troopName]['mana']);
+			gems.common.troops[troopName]['color'] = $(typeNode).parent().find('.pi-data-value').text().split("/");
+			gems.common.log(troopName + " color: " + gems.common.troops[troopName]['color']);
 
 		}
 	});
+
+	// ------------------------------------------------------------------------------------------------------------
+	// all tables!
+	var tables = htmlDom.find('.wikitable');
+
+
+	// ------------------------------------------------------------------------------------------------------------
+	// level progression data
+	var progressionRows = $(tables[0]).find('tr');
+
+	var lifeProgressions = $(progressionRows[2]).find('td');
+	gems.common.troops[troopName]['life'] = [];
+	$.each( lifeProgressions, function( i, val ) {
+		gems.common.troops[troopName]['life'].push(parseInt($(val).text()));
+	});
+	gems.common.log(troopName + " life progressions: " + gems.common.troops[troopName]['life'].length);
+
+	var armorProgressions = $(progressionRows[3]).find('td');
+	gems.common.troops[troopName]['armor'] = [];
+	$.each( armorProgressions, function( i, val ) {
+		gems.common.troops[troopName]['armor'].push(parseInt($(val).text()));
+	});
+	gems.common.log(troopName + " armor progressions: " + gems.common.troops[troopName]['armor'].length);
+
+	var attackProgressions = $(progressionRows[4]).find('td');
+	gems.common.troops[troopName]['attack'] = [];
+	$.each( attackProgressions, function( i, val ) {
+		gems.common.troops[troopName]['attack'].push(parseInt($(val).text()));
+	});
+	gems.common.log(troopName + " life progressions: " + gems.common.troops[troopName]['life'].length);
+
+	var magicProgressions = $(progressionRows[5]).find('td');
+	gems.common.troops[troopName]['magic'] = [];
+	$.each( magicProgressions, function( i, val ) {
+		gems.common.troops[troopName]['magic'].push(parseInt($(val).text()));
+	});
+	gems.common.log(troopName + " magic progressions: " + gems.common.troops[troopName]['magic'].length);
+
+	// ------------------------------------------------------------------------------------------------------------
+	// spell data
+	// for th: 0=image, 1=title, 2=cost, 3=desc
+	// for td: 0=cost/color, 1=description
+
+	var spellImage = $(tables[1]).find('img').attr('data-src');
+	spellImage = spellImage.substring(0, spellImage.indexOf('.png') + 4);
+
+	var spellLabels = $(tables[1]).find('th');
+	var spellName = $(spellLabels[1]).text().trim();
+	gems.common.log(troopName + " spell name: " + spellName);
+
+	var spellValues = $(tables[1]).find('td');
+	var spellCost = parseInt($(spellValues[0]).text());
+	var spellDesc = $(spellValues[1]).text().trim();
+
+	gems.common.troops[troopName]['spell'] = {};
+	gems.common.troops[troopName]['spell']['spellName'] = spellName;
+	gems.common.troops[troopName]['spell']['spellImage'] = spellImage;
+	gems.common.troops[troopName]['spell']['spellCost'] = spellCost;
+	gems.common.troops[troopName]['spell']['spellColor'] = gems.common.troops[troopName]['color'];
+	gems.common.troops[troopName]['spell']['spellDesc'] = spellDesc;
+
+	gems.common.log(troopName + " spell cost: " + JSON.stringify(gems.common.troops[troopName]['spell']));
+
+
+	// ------------------------------------------------------------------------------------------------------------
+	// keywords
+	// name, kingdom, color, cost, type, rarity, spell name, spell desc
+
+	gems.common.troops[troopName]['index'] = "|";
+	gems.common.troops[troopName]['index'] = gems.common.troops[troopName]['index'] + gems.common.troops[troopName]['name'] + "|";
+	gems.common.troops[troopName]['index'] = gems.common.troops[troopName]['index'] + gems.common.troops[troopName]['kingdom'] + "|";
+
+	$.each(gems.common.troops[troopName]['color'], function( i, val) {
+		gems.common.troops[troopName]['index'] = gems.common.troops[troopName]['index'] + val + "|";
+	});
+
+	gems.common.troops[troopName]['index'] = gems.common.troops[troopName]['index'] + gems.common.troops[troopName]['type'] + "|";
+	gems.common.troops[troopName]['index'] = gems.common.troops[troopName]['index'] + gems.common.troops[troopName]['rarity'] + "|";
+	gems.common.troops[troopName]['index'] = gems.common.troops[troopName]['index'] + gems.common.troops[troopName]['spell']['spellCost'] + "|";
+	gems.common.troops[troopName]['index'] = gems.common.troops[troopName]['index'] + gems.common.troops[troopName]['spell']['spellName'] + "|";
+	gems.common.troops[troopName]['index'] = gems.common.troops[troopName]['index'] + gems.common.troops[troopName]['spell']['spellDesc'] + "|";
+
+	gems.common.log(troopName + " index: " + gems.common.troops[troopName]['index']);
 
 	gems.tools.removeTroopParse(troopName);
 	gems.tools.checkFinishedParsingTroops();
