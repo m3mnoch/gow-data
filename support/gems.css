@@ -1,1 +1,34 @@
 .tallTextArea {height:500px;}
+
+dl.troopData{
+    width:100%;
+    overflow:hidden;
+}
+
+dl.troopData dt {
+    font-weight:600;
+    float:left;
+    width:35%;
+    clear:both;
+    padding:0;
+    padding-bottom:3px;
+    position:relative;
+    text-align: right;
+}
+dl.troopData dt:after {
+	content:':';
+}
+
+dl.troopData dd {
+    float:right;
+    width:63%;
+    padding:0;
+    padding-bottom:3px;
+    margin-left:0;
+}
+
+dl.troopData dd {
+    *float:none;
+    *width:auto;
+    *margin-left:37%;
+}
