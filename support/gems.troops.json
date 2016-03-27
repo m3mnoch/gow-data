@@ -1,6 +1,104 @@
 {
-	"Abhorath": {
-		"name": "Abhorath",
-		"image": "http://vignette1.wikia.nocookie.net/gems-of-war/images/d/de/Troop_Abhorath.png"
+	"Dimetraxia": {
+		"name": "Dimetraxia",
+		"image": "http://vignette3.wikia.nocookie.net/gems-of-war/images/8/81/Troop_Dimetraxia.png",
+		"url": "/wiki/Dimetraxia",
+		"flavor": "\"Do not meddle in the affairs of dragons.\"",
+		"rarity": "Epic",
+		"kingdom": "Darkstone",
+		"type": "Dragon",
+		"mana": [
+			"Red",
+			"Yellow"
+		]
+	},
+	"Dire Wolf": {
+		"name": "Dire Wolf",
+		"image": "http://vignette1.wikia.nocookie.net/gems-of-war/images/e/e0/Troop_Dire_Wolf.png",
+		"url": "/wiki/Dire_Wolf",
+		"flavor": "\"It's like a wolf, only more dire.\"",
+		"rarity": "Common",
+		"kingdom": "Maugrim Woods",
+		"type": "Beast",
+		"mana": [
+			"Green"
+		]
+	},
+	"Dokkalfar": {
+		"name": "Dokkalfar",
+		"image": "http://vignette4.wikia.nocookie.net/gems-of-war/images/a/a3/Troop_Dokkalfar.png",
+		"url": "/wiki/Dokkalfar",
+		"flavor": "\"Lack of chocolate is the root of all evil.\"",
+		"rarity": "Epic",
+		"kingdom": "Zhul'Kari",
+		"type": "Elf",
+		"mana": [
+			"Green",
+			"Purple"
+		]
+	},
+	"Drake Rider": {
+		"name": "Drake Rider",
+		"image": "http://vignette2.wikia.nocookie.net/gems-of-war/images/d/d1/Troop_Drake_Rider.png",
+		"url": "/wiki/Drake_Rider",
+		"flavor": "\"No, he's NOT riding a male duck.\"",
+		"rarity": "Ultra Rare",
+		"kingdom": "Grosh-Nak",
+		"type": "Marauder",
+		"mana": [
+			"Brown",
+			"Purple"
+		]
+	},
+	"Druid": {
+		"name": "Druid",
+		"image": "http://vignette1.wikia.nocookie.net/gems-of-war/images/e/e9/Troop_Druid.png",
+		"url": "/wiki/Druid",
+		"flavor": "\"HE let the dogs out.\"",
+		"rarity": "Ultra Rare",
+		"kingdom": "Maugrim Woods",
+		"type": "Wildfolk",
+		"mana": [
+			"Green",
+			"Blue"
+		]
+	},
+	"Dryad": {
+		"name": "Dryad",
+		"image": "http://vignette2.wikia.nocookie.net/gems-of-war/images/1/11/Troop_Dryad.png",
+		"url": "/wiki/Dryad",
+		"flavor": "\"I wonder what she wears in autumn?\"",
+		"rarity": "Rare",
+		"kingdom": "Forest of Thorns",
+		"type": "Fey",
+		"mana": [
+			"Yellow",
+			"Blue"
+		]
+	},
+	"Dwarf Lord": {
+		"name": "Dwarf Lord",
+		"image": "http://vignette1.wikia.nocookie.net/gems-of-war/images/e/ee/Troop_Dwarf_Lord.png",
+		"url": "/wiki/Dwarf_Lord",
+		"flavor": "\"He was rocking this beard BEFORE it was cool.\"",
+		"rarity": "Rare",
+		"kingdom": "Khaziel",
+		"type": "Dwarf",
+		"mana": [
+			"Brown",
+			"Blue"
+		]
+	},
+	"Dwarven Miner": {
+		"name": "Dwarven Miner",
+		"image": "http://vignette1.wikia.nocookie.net/gems-of-war/images/f/f5/Troop_Dwarven_Miner.png",
+		"url": "/wiki/Dwarven_Miner",
+		"flavor": "\"Don't ever call him grumpy.\"",
+		"rarity": "Common",
+		"kingdom": "Khaziel",
+		"type": "Dwarf",
+		"mana": [
+			"Brown"
+		]
 	}
 }

@@ -37,7 +37,7 @@ gems.common.log = function(logline) {
 	if (gems.common.loggingEnabled) {
 		var msDiff = Date.now() - gems.common.initMs;
 		console.log(logline);
-		$('#fetchlog').val(function(i, text) {
+		$('#gemlog').val(function(i, text) {
 		    return text + msDiff + ": " + logline + "\n";
 		});
 	}
