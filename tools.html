@@ -1,54 +1,24 @@
-
 <!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Tools - Gems of War Data</title>
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-	<link rel="stylesheet" href="support/side-menu.css">
 
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js"></script>
 	<script>
-
-		// for the side menu.
-		(function (window, document) {
-
-			var layout   = document.getElementById('layout'),
-				menu     = document.getElementById('menu'),
-				menuLink = document.getElementById('menuLink');
-
-			function toggleClass(element, className) {
-				var classes = element.className.split(/\s+/),
-					length = classes.length,
-					i = 0;
-
-				for(; i < length; i++) {
-				  if (classes[i] === className) {
-					classes.splice(i, 1);
-					break;
-				  }
-				}
-				// The className is not found
-				if (length === classes.length) {
-					classes.push(className);
-				}
-
-				element.className = classes.join(' ');
-			}
-
-			menuLink.onclick = function (e) {
-				var active = 'active';
-
-				e.preventDefault();
-				toggleClass(layout, active);
-				toggleClass(menu, active);
-				toggleClass(menuLink, active);
-			};
-
-		}(this, this.document));
-
+		//var supportBaseUrl = "http://m3mnoch.com/static/gow-data/support/";
+		var supportBaseUrl = "support/";
+	    head.load(
+	    	"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js", 
+	    	supportBaseUrl + "gems.common.js", 
+	    	supportBaseUrl + "gems.tools.js", 
+	    	supportBaseUrl + "side-menu.js", 
+	    	supportBaseUrl + "gems.css", 
+	    	supportBaseUrl + "side-menu.css", 
+	    	"http://yui.yahooapis.com/pure/0.6.0/pure-min.css"
+		);
 	</script>
-
 </head>
 <body>
 
@@ -79,25 +49,17 @@
 			<form class="pure-form">
 			    <button type="button" class="pure-button pure-input-1-4 pure-button-primary" id="grabtroops">Grab Troops</button>
 			    <br/><br/>
-			    <textarea id="jsonbucket" class="pure-input-1" placeholder="JSON will show up here" style="height:500px;"></textarea>
+			    <textarea id="fetchlog" class="pure-input-2-3 tallTextArea" placeholder="Logging disabled"></textarea>
+			    <textarea id="jsonbucket" class="pure-input-1-3 tallTextArea" placeholder="New JSON will show up here"></textarea>
 			</form>
-
-
-			<div class="after-me"></div>
 
 		</div>
 	</div>
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="support/gems.common.js"></script>
-<script src="support/gems.tools.js"></script>
 <script>
-	/*
-	 * kick everything off
-	 */
-	jQuery( document ).ready(function( $ ) {
+	head.ready(function () {
 		gems.common.init();
 		gems.tools.init();
 	});

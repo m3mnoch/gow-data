@@ -16,6 +16,9 @@ jQuery.namespace = function() {
 
 $.namespace('gems.common');
 
+gems.common.loggingEnabled = true;
+gems.common.initMs = Date.now();
+
 gems.common.troopDataUrl = "support/gems.troops.json";
 gems.common.troops = {};
 
@@ -26,5 +29,16 @@ gems.common.images.attack = "http://vignette2.wikia.nocookie.net/gems-of-war/ima
 gems.common.images.magic = "http://vignette2.wikia.nocookie.net/gems-of-war/images/f/f7/Magic.png";
 
 gems.common.init = function() {
-	console.log("common script loaded.");
+	gems.common.initDate = new Date();
+	gems.common.log("common script loaded.");
+}
+
+gems.common.log = function(logline) {
+	if (gems.common.loggingEnabled) {
+		var msDiff = Date.now() - gems.common.initMs;
+		console.log(logline);
+		$('#fetchlog').val(function(i, text) {
+		    return text + msDiff + ": " + logline + "\n";
+		});
+	}
 }
