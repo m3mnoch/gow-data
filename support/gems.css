@@ -4,6 +4,19 @@
 	margin-bottom: 15%;
 }
 
+#trooplist a {text-decoration: none; color: #3d3d3d;}
+
+.tableImage {
+	width: 45px;
+	height: 45px;
+}
+
+.commonTroop {background-color:#F2F2F2 !important;}
+.epicTroop {background-color:#BCA9F5 !important;}
+.legendaryTroop {background-color:#F5DA81 !important;}
+.rareTroop {background-color:#CEF6CE !important;}
+.ultra-rareTroop {background-color:#A9D0F5 !important;}
+
 dl.troopData{
     width:100%;
     overflow:hidden;

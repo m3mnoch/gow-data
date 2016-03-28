@@ -17,6 +17,8 @@
 	    	supportBaseUrl + "side-menu.js", 
 	    	supportBaseUrl + "gems.css", 
 	    	supportBaseUrl + "side-menu.css", 
+	    	supportBaseUrl + "tablesorter/jquery.tablesorter.min.js", 
+	    	supportBaseUrl + "tablesorter/themes/blue/style.css", 
 	    	"http://yui.yahooapis.com/pure/0.6.0/pure-min.css",
 	    	"http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"
 		);
@@ -60,27 +62,27 @@
 				<form class="pure-form pure-u-1-2 pure-u-lg-1-5">
 					<h4>Color Filter</h4>
 					<label for="color-red" class="pure-checkbox">
-						<input id="color-red" type="checkbox" value="red">
+						<input id="color-red" class="troopFilter" type="checkbox" value="red">
 						Red
 					</label>
 					<label for="color-blue" class="pure-checkbox">
-						<input id="color-blue" type="checkbox" value="blue">
+						<input id="color-blue" class="troopFilter" type="checkbox" value="blue">
 						Blue
 					</label>
 					<label for="color-green" class="pure-checkbox">
-						<input id="color-green" type="checkbox" value="green">
+						<input id="color-green" class="troopFilter" type="checkbox" value="green">
 						Green
 					</label>
 					<label for="color-yellow" class="pure-checkbox">
-						<input id="color-yellow" type="checkbox" value="yellow">
+						<input id="color-yellow" class="troopFilter" type="checkbox" value="yellow">
 						Yellow
 					</label>
 					<label for="color-brown" class="pure-checkbox">
-						<input id="color-brown" type="checkbox" value="brown">
+						<input id="color-brown" class="troopFilter" type="checkbox" value="brown">
 						Brown
 					</label>
 					<label for="color-purple" class="pure-checkbox">
-						<input id="color-purple" type="checkbox" value="purple">
+						<input id="color-purple" class="troopFilter" type="checkbox" value="purple">
 						Purple
 					</label>
 				</form>
@@ -99,8 +101,19 @@
 
 				<hr/>
 
-				<div id="troopView" style="display:none;"></div>
-				<div id="trooplist" style="display:none;"></div>
+				<div id="troopView"></div>
+				<table id="trooplist" class="tablesorter">
+					<thead><tr>
+						<th>Image</th>
+						<th>Name</th>
+						<th>Color</th>
+						<th>Cost</th>
+						<th>Kingdom</th>
+						<th>Type</th>
+						<th>Rarity</th>
+					</tr></thead>
+					<tbody></tbody>
+				</table>
 
 			</div>
 
