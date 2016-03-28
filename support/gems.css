@@ -1,5 +1,9 @@
 .tallTextArea {height:500px;}
 
+.pullRight {
+    float:right !important;
+}
+
 #troopView {
 	margin-bottom: 15%;
 }
@@ -16,6 +20,10 @@
 .legendaryTroop {background-color:#F5DA81 !important;}
 .rareTroop {background-color:#CEF6CE !important;}
 .ultra-rareTroop {background-color:#A9D0F5 !important;}
+
+.troopProgression th, .troopProgression td{
+    text-align: center !important;
+}
 
 dl.troopData{
     width:100%;

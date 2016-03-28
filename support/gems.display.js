@@ -13,6 +13,10 @@ gems.display.loadTroopData = function() {
 		$("#loadMessage").hide();
 		$("#troopForm").show();
 
+		$("#filterbox").keyup(function() {
+			gems.display.applyKeywordFilters();
+		});
+
 		$(".troopFilter").click(function() {
 			gems.display.applyKeywordFilters();
 		});
@@ -76,6 +80,12 @@ gems.display.applyKeywordFilters = function() {
 
 		var canDisplay = true;
 
+		// first, search the input field for general text.
+		if (troopData['index'].toLowerCase().indexOf($("#filterbox").val().toLowerCase()) < 0) {
+			canDisplay = false;
+		}
+
+		// then, check the filter checkboxes
 		$.each(troopFilters, function(i, filterWord) {
 			if (canDisplay) {
 				// find |filterWord| in the index field.
@@ -87,10 +97,7 @@ gems.display.applyKeywordFilters = function() {
 			}
 		});
 
-		// now, search the input field for general text.
-		// str.toLowerCase();
-		// troopImage = troopImage.substring(0, troopImage.indexOf('.png') + 4);
-
+		// draw them if we can.
 		if (canDisplay) {
 			gems.common.log("adding " + troopName + " to list");
 			var newTroop = $('<tr></tr>');
@@ -106,7 +113,7 @@ gems.display.applyKeywordFilters = function() {
 			newTroop.click(function() {
 				gems.display.showTroop(troopName);
 			});
-			
+
 			$("#trooplist tbody").append(newTroop);
 		}
 	});
@@ -123,8 +130,33 @@ gems.display.showTroop = function(troopName) {
 	}
 
 	gems.common.log("building new " + troopName + " display");
-	// bulldoze and pave.
+	$("#troopView").empty();
+	$("#templates .troopCard").clone().appendTo("#troopView");
 
+	var displayTroop = $("#troopView .troopCard");
+	var troopData = gems.common.troops[troopName];
+	
+	displayTroop.find(".troopImage").attr("src", troopData.image);
+	displayTroop.find(".troopName").text(troopData.name);
+	displayTroop.find(".troopColor").text(troopData.color);
+	displayTroop.find(".troopRarity").text(troopData.rarity);
+	displayTroop.find(".troopKingdom").text(troopData.kingdom);
+	displayTroop.find(".troopType").text(troopData.type);
+	displayTroop.find(".troopFlavor").text(troopData.flavor);
+
+	displayTroop.find(".spellImage").attr("src", troopData.spell.spellImage);
+	displayTroop.find(".spellName").text(troopData.spell.spellName);
+	displayTroop.find(".spellCost").text(troopData.spell.spellCost);
+	displayTroop.find(".spellDesc").text(troopData.spell.spellDesc);
+
+	for (var i=0; i<troopData.life.length; i++) {
+		displayTroop.find('.progressionHealth').append('<td>' + troopData.life[i] + '</td>');
+		displayTroop.find('.progressionArmor').append('<td>' + troopData.armor[i] + '</td>');
+		displayTroop.find('.progressionAttack').append('<td>' + troopData.attack[i] + '</td>');
+		displayTroop.find('.progressionMagic').append('<td>' + troopData.magic[i] + '</td>');
+	}
+
+	$("#troopView").show();
 }
 
 gems.display.showList = function(troopName) {
