@@ -7,9 +7,9 @@
 
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js"></script>
 	<script>
-		var supportBaseUrl = "http://m3mnoch.com/static/gow-data/support/";
+		var supportBaseUrl = "/static/gow-data/support/";
 		//var supportBaseUrl = "support/";
-		
+
 	    head.load(
 	    	"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js", 
 	    	supportBaseUrl + "gems.common.js", 
@@ -17,7 +17,8 @@
 	    	supportBaseUrl + "side-menu.js", 
 	    	supportBaseUrl + "gems.css", 
 	    	supportBaseUrl + "side-menu.css", 
-	    	"http://yui.yahooapis.com/pure/0.6.0/pure-min.css"
+	    	"http://yui.yahooapis.com/pure/0.6.0/pure-min.css",
+	    	"http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"
 		);
 	</script>
 </head>
@@ -49,39 +50,94 @@
 			</div>
 
 			<div id="troopForm" class="content" style="display:none;">
-				<h2 class="content-subhead">Troop Search</h2>
-				<p><input type="text" class="pure-input-1-2" placeholder="Keyword Filter"></p>
+				<form class="pure-form">
+		            <div class="pure-u-1 pure-u-md-1-3">
+		                <label for="first-name"><h4>Troop Keyword Search</h4></label>
+		                <input id="filterbox" class="pure-u-23-24" type="text">
+		            </div>
+	            </form>
 
-
-				<form class="pure-form pure-u-1-4">
+				<form class="pure-form pure-u-1-2 pure-u-lg-1-5">
 					<h4>Color Filter</h4>
 					<label for="color-red" class="pure-checkbox">
 						<input id="color-red" type="checkbox" value="red">
 						Red
 					</label>
+					<label for="color-blue" class="pure-checkbox">
+						<input id="color-blue" type="checkbox" value="blue">
+						Blue
+					</label>
+					<label for="color-green" class="pure-checkbox">
+						<input id="color-green" type="checkbox" value="green">
+						Green
+					</label>
+					<label for="color-yellow" class="pure-checkbox">
+						<input id="color-yellow" type="checkbox" value="yellow">
+						Yellow
+					</label>
+					<label for="color-brown" class="pure-checkbox">
+						<input id="color-brown" type="checkbox" value="brown">
+						Brown
+					</label>
+					<label for="color-purple" class="pure-checkbox">
+						<input id="color-purple" type="checkbox" value="purple">
+						Purple
+					</label>
 				</form>
 
-				<div id="trooplist">
-					
-					<div class="troopCard">
-						<img src="http://vignette2.wikia.nocookie.net/gems-of-war/images/9/98/Troop_Spider_Queen.png" class="pure-u-1-3">
-						<div class="pure-u-5-8">
-							<dl class="troopData">
-								<dt>Name</dt><dd>Spider Queen</dd>
-								<dt>Rarity</dt><dd>Ultra Rare</dd>
-							</dl>
-							<p class="troopFlavor">"She enjoys long walks on the beach and eating her prey alive."</p>
-						</div>
+				<form id="kingdomFilter" class="pure-form pure-u-1-2 pure-u-lg-1-4">
+					<h4>Kingdom Filter</h4>
+				</form>
 
-					</div>
+				<form id="rarityFilter" class="pure-form pure-u-1-2 pure-u-lg-1-4">
+					<h4>Rarity Filter</h4>
+				</form>
 
+				<form id="typeFilter" class="pure-form pure-u-1-2 pure-u-lg-1-4">
+					<h4>Type Filter</h4>
+				</form>
 
-				</div>
+				<hr/>
+
+				<div id="troopView" style="display:none;"></div>
+				<div id="trooplist" style="display:none;"></div>
 
 			</div>
 
 		</div>
 
+	</div>
+
+	<div id="templates" style="display:none">
+		<div class="troopCard">
+			<img class="troopImage" src="" class="pure-u-1 pure-u-md-1-3">
+			<div class="pure-u-1 pure-u-md-5-8">
+				<dl class="troopData">
+					<dt>Name</dt><dd class="troopName"></dd>
+					<dt>Color</dt><dd class="troopColor"></dd>
+					<dt>Rarity</dt><dd class="troopRarity"></dd>
+					<dt>Kingdom</dt><dd class="troopKingdom"></dd>
+					<dt>Type</dt><dd class="troopType"></dd>
+				</dl>
+
+				<p class="troopFlavor"></p>
+
+				<img class="spellImage" src="" class="pure-u-1 pure-u-md-1-3">
+				<h4 class="spellName"></h4>
+				<h5 class="spellCost"></h5>
+				<p class="spellDesc"></p>
+
+			</div>
+
+			<table class="troopProgression">
+				<tr><th>Level</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th></tr>
+				<tr class="progressionHealth"><th>Health</th></tr>
+				<tr class="progressionArmor"><th>Armor</th></tr>
+				<tr class="progressionAttack"><th>Attack</th></tr>
+				<tr class="progressionMagic"><th>Magic</th></tr>
+			</table>
+
+		</div>
 	</div>
 
 <script>

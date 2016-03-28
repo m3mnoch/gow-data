@@ -1,5 +1,9 @@
 .tallTextArea {height:500px;}
 
+#troopView {
+	margin-bottom: 15%;
+}
+
 dl.troopData{
     width:100%;
     overflow:hidden;
