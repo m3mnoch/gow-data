@@ -1,5 +1,28 @@
 .tallTextArea {height:500px;}
 
+.filterWrapper {
+    padding: 5px;
+}
+
+h4 {
+    margin-top: 1.33em;
+    margin-bottom: 1em;
+    font-size: 1em;
+}
+
+hr {
+    border: 0;
+    height: 1px !important;
+    background-image: linear-gradient(to right, rgba(128, 128, 128, 0), rgba(128, 128, 128, 0.75), rgba(128, 128, 128, 0));
+}
+.troopCard hr {
+    margin-top: 5em;
+}
+
+.checkboxBackHalf {
+    margin-top: 3em;
+}
+
 .pullRight {
     float:right !important;
 }
@@ -15,11 +38,27 @@
 	height: 45px;
 }
 
+.troopInfo {
+    background-color:#f9f9f9;
+    padding: 5px;
+}
+
+.spellCard {
+    background-color:#dadada;
+    padding: 5px;
+}
+
 .commonTroop {background-color:#F2F2F2 !important;}
 .epicTroop {background-color:#BCA9F5 !important;}
 .legendaryTroop {background-color:#F5DA81 !important;}
 .rareTroop {background-color:#CEF6CE !important;}
 .ultra-rareTroop {background-color:#A9D0F5 !important;}
+
+.commonRarity {}
+.epicRarity {color:#BCA9F5 !important;}
+.legendaryRarity {color:#F5DA81 !important;}
+.rareRarity {color:#CEF6CE !important;}
+.ultra-rareRarity {color:#A9D0F5 !important;}
 
 .troopProgression th, .troopProgression td{
     text-align: center !important;

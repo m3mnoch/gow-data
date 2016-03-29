@@ -20,7 +20,8 @@
 	    	supportBaseUrl + "tablesorter/jquery.tablesorter.min.js", 
 	    	supportBaseUrl + "tablesorter/themes/blue/style.css", 
 	    	"http://yui.yahooapis.com/pure/0.6.0/pure-min.css",
-	    	"http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"
+	    	"http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css",
+	    	"http://yui.yahooapis.com/pure/0.6.0/base-min.css"
 		);
 	</script>
 </head>
@@ -36,8 +37,65 @@
 
 		<div id="menu">
 			<div class="pure-menu">
-				<a class="pure-menu-heading" href="index.html">Troops</a>
-				<a class="pure-menu-heading" href="tools.html">Tools</a>
+				<span class="pure-menu-heading">Filters</span>
+				<br/>
+
+				<div class="filterWrapper">
+
+					<form class="pure-form">
+		                <input id="filterbox" class="pure-u-5-6" type="text" placeholder="Troop Keyword Search">
+		            </form>
+
+		            <hr/>
+
+					<form class="pure-form pure-u-1-2">
+						<h4>Color Filter</h4>
+						<label for="color-red" class="pure-checkbox">
+							<input id="color-red" class="troopFilter" type="checkbox" value="red">
+							Red
+						</label>
+						<label for="color-blue" class="pure-checkbox">
+							<input id="color-blue" class="troopFilter" type="checkbox" value="blue">
+							Blue
+						</label>
+						<label for="color-green" class="pure-checkbox">
+							<input id="color-green" class="troopFilter" type="checkbox" value="green">
+							Green
+						</label>
+						<label for="color-yellow" class="pure-checkbox">
+							<input id="color-yellow" class="troopFilter" type="checkbox" value="yellow">
+							Yellow
+						</label>
+						<label for="color-brown" class="pure-checkbox">
+							<input id="color-brown" class="troopFilter" type="checkbox" value="brown">
+							Brown
+						</label>
+						<label for="color-purple" class="pure-checkbox">
+							<input id="color-purple" class="troopFilter" type="checkbox" value="purple">
+							Purple
+						</label>
+					</form>
+
+					<form id="rarityFilter" class="pure-form pure-u-11-24">
+						<h4>Rarity Filter</h4>
+					</form>
+
+		            <hr/>
+
+					<form id="kingdomFilterLeft" class="pure-form pure-u-1-2">
+						<h4>Kingdom Filter</h4>
+					</form>
+					<form id="kingdomFilterRight" class="pure-form pure-u-11-24 checkboxBackHalf"></form>
+
+					<form id="typeFilterLeft" class="pure-form pure-u-1-2">
+						<h4>Type Filter</h4>
+					</form>
+					<form id="typeFilterRight" class="pure-form pure-u-11-24 checkboxBackHalf"></form>
+
+					<hr/>
+
+				</div>
+
 			</div>
 		</div>
 
@@ -52,57 +110,10 @@
 			</div>
 
 			<div id="troopForm" class="content" style="display:none;">
-				<form class="pure-form">
-		            <div class="pure-u-1 pure-u-md-1-3">
-		                <label for="first-name"><h4>Troop Keyword Search</h4></label>
-		                <input id="filterbox" class="pure-u-23-24" type="text">
-		            </div>
-	            </form>
-
-				<form class="pure-form pure-u-1-2 pure-u-lg-1-5">
-					<h4>Color Filter</h4>
-					<label for="color-red" class="pure-checkbox">
-						<input id="color-red" class="troopFilter" type="checkbox" value="red">
-						Red
-					</label>
-					<label for="color-blue" class="pure-checkbox">
-						<input id="color-blue" class="troopFilter" type="checkbox" value="blue">
-						Blue
-					</label>
-					<label for="color-green" class="pure-checkbox">
-						<input id="color-green" class="troopFilter" type="checkbox" value="green">
-						Green
-					</label>
-					<label for="color-yellow" class="pure-checkbox">
-						<input id="color-yellow" class="troopFilter" type="checkbox" value="yellow">
-						Yellow
-					</label>
-					<label for="color-brown" class="pure-checkbox">
-						<input id="color-brown" class="troopFilter" type="checkbox" value="brown">
-						Brown
-					</label>
-					<label for="color-purple" class="pure-checkbox">
-						<input id="color-purple" class="troopFilter" type="checkbox" value="purple">
-						Purple
-					</label>
-				</form>
-
-				<form id="kingdomFilter" class="pure-form pure-u-1-2 pure-u-lg-1-4">
-					<h4>Kingdom Filter</h4>
-				</form>
-
-				<form id="rarityFilter" class="pure-form pure-u-1-2 pure-u-lg-1-4">
-					<h4>Rarity Filter</h4>
-				</form>
-
-				<form id="typeFilter" class="pure-form pure-u-1-2 pure-u-lg-1-4">
-					<h4>Type Filter</h4>
-				</form>
-
-				<hr/>
 
 				<div id="troopView"></div>
-				<table id="trooplist" class="tablesorter">
+
+				<table id="trooplist" class="tablesorter" tabindex="-1">
 					<thead><tr>
 						<th>Image</th>
 						<th>Name</th>
@@ -124,7 +135,7 @@
 	<div id="templates" style="display:none">
 		<div class="troopCard">
 			<img class="troopImage" src="" class="pure-u-1 pure-u-md-1-2">
-			<div class="pure-u-1 pure-u-md-11-24">
+			<div class="troopInfo pure-u-1 pure-u-md-11-24">
 				<dl class="troopData">
 					<dt>Name</dt><dd class="troopName"></dd>
 					<dt>Color</dt><dd class="troopColor"></dd>
@@ -135,12 +146,14 @@
 
 				<p class="troopFlavor"></p>
 
-				<img class="spellImage pullRight" style="width: 25%" src="">
-				<div class="pure-u-1-2 pure-u-md-5-8 spellAttributes">
-					<b class="spellName"></b>
-					<br/>
-					<i class="spellCost"></i>
-					<p class="spellDesc"></p>
+				<div class="spellCard">
+					<img class="spellImage pullRight" style="width: 25%" src="">
+					<div class="pure-u-1-2 pure-u-md-5-8 spellAttributes">
+						<b class="spellName"></b>
+						<br/>
+						<i class="spellCost"></i>
+						<p class="spellDesc"></p>
+					</div>
 				</div>
 
 			</div>
@@ -152,6 +165,8 @@
 				<tr class="progressionAttack"><th>Attack</th></tr>
 				<tr class="progressionMagic"><th>Magic</th></tr>
 			</table>
+
+			<hr/>
 
 		</div>
 	</div>

@@ -13,13 +13,23 @@ gems.display.loadTroopData = function() {
 		$("#loadMessage").hide();
 		$("#troopForm").show();
 
-		$("#filterbox").keyup(function() {
+		$("#filterbox").keydown(function(event) {
+			if(event.keyCode == 13) {
+				event.preventDefault();
+				$("#trooplist").attr("tabindex",-1).focus();
+				return true;
+			}
+		});
+
+		$("#filterbox").change(function() {
 			gems.display.applyKeywordFilters();
 		});
 
 		$(".troopFilter").click(function() {
 			gems.display.applyKeywordFilters();
 		});
+
+		gems.display.applyKeywordFilters();
 	});
 }
 
@@ -42,19 +52,30 @@ gems.display.buildKeywordFilters = function() {
 		}
 	});
 
+	rarities.sort();
+	$.each(rarities, function(i, rarity) {
+		$("#rarityFilter").append('<label for="rarity-' + rarity + '" class="pure-checkbox"><input id="rarity-' + rarity + '" class="troopFilter" type="checkbox" value="' + rarity + '"> ' + rarity + '</label>');
+	});
+
 	kingdoms.sort();
 	$.each(kingdoms, function(i, kingdom) {
-		$("#kingdomFilter").append('<label for="kingdom-' + kingdom + '" class="pure-checkbox"><input id="kingdom-' + kingdom + '" class="troopFilter" type="checkbox" value="' + kingdom + '"> ' + kingdom + '</label>');
+		var checkbox = $('<label for="kingdom-' + kingdom + '" class="pure-checkbox"><input id="kingdom-' + kingdom + '" class="troopFilter" type="checkbox" value="' + kingdom + '"> ' + kingdom + '</label>');
+		if (i < kingdoms.length / 2) {
+			$("#kingdomFilterLeft").append(checkbox);
+		} else {
+			$("#kingdomFilterRight").append(checkbox);
+		}
+
 	});
 
 	types.sort();
 	$.each(types, function(i, type) {
-		$("#typeFilter").append('<label for="type-' + type + '" class="pure-checkbox"><input id="type-' + type + '" class="troopFilter" type="checkbox" value="' + type + '"> ' + type + '</label>');
-	});
-
-	rarities.sort();
-	$.each(rarities, function(i, rarity) {
-		$("#rarityFilter").append('<label for="rarity-' + rarity + '" class="pure-checkbox"><input id="rarity-' + rarity + '" class="troopFilter" type="checkbox" value="' + rarity + '"> ' + rarity + '</label>');
+		var checkbox = $('<label for="type-' + type + '" class="pure-checkbox"><input id="type-' + type + '" class="troopFilter" type="checkbox" value="' + type + '"> ' + type + '</label>');
+		if (i < types.length / 2) {
+			$("#typeFilterLeft").append(checkbox);
+		} else {
+			$("#typeFilterRight").append(checkbox);
+		}
 	});
 
 }
@@ -146,7 +167,7 @@ gems.display.showTroop = function(troopName) {
 
 	displayTroop.find(".spellImage").attr("src", troopData.spell.spellImage);
 	displayTroop.find(".spellName").text(troopData.spell.spellName);
-	displayTroop.find(".spellCost").text(troopData.spell.spellCost);
+	displayTroop.find(".spellCost").text(troopData.spell.spellCost + ' ' + troopData.color);
 	displayTroop.find(".spellDesc").text(troopData.spell.spellDesc);
 
 	for (var i=0; i<troopData.life.length; i++) {
@@ -155,6 +176,8 @@ gems.display.showTroop = function(troopName) {
 		displayTroop.find('.progressionAttack').append('<td>' + troopData.attack[i] + '</td>');
 		displayTroop.find('.progressionMagic').append('<td>' + troopData.magic[i] + '</td>');
 	}
+
+	$(".troopRarity").addClass(troopData.rarity.toLowerCase().replace(" ", "-") + 'Rarity');
 
 	$("#troopView").show();
 }
